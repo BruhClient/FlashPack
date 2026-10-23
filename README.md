@@ -1,34 +1,64 @@
-# Flashcards
+<div align="center">
 
-A desktop flashcard app in the spirit of Anki, built with PyQt6. Cards are organised as
-**class → chapter → card**. After each answer you rate your confidence from 1 to 5, and a
-spaced-repetition scheduler uses those ratings to pick what to test next. Everything is
-stored locally, and you can export it to a single file to move it to another device.
+# FlashPack
+
+**A desktop flashcard app in the spirit of Anki.**<br>
+Organise cards by class and chapter, rate how well you knew each one, and let spaced
+repetition decide what to test next. Everything stays on your machine.
+
+<img alt="Python 3.10+" src="https://img.shields.io/badge/python-3.10%2B-2b2724?style=flat-square">
+<img alt="PyQt6" src="https://img.shields.io/badge/UI-PyQt6-2b2724?style=flat-square">
+<img alt="Local SQLite storage" src="https://img.shields.io/badge/storage-local%20SQLite-2b2724?style=flat-square">
+
+[Features](#features) · [Getting started](#getting-started) · [Shortcuts](#keyboard-shortcuts) ·
+[Scheduling](#how-cards-are-chosen) · [Your data](#your-data) · [Development](#development)
+
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dashboard-dark.png">
+  <img alt="Class dashboard: mastery figures, each chapter's status mix, every card as a coloured tile and reviews over the last 30 days" src="docs/screenshots/dashboard-light.png">
+</picture>
+
+</div>
 
 ## Features
 
 - **Rich cards.** Both sides support bold, italic, underline, strikethrough, headings,
   lists, text colours, highlights and images (paste, drag in or insert).
-- **Confidence ratings.** Rate each answer: 1 No idea, 2 Barely, 3 Unsure, 4 Good,
-  5 Perfect.
+- **Confidence ratings.** Rate each answer from 1 to 5: *No idea*, *Barely*, *Unsure*,
+  *Good*, *Perfect*.
 - **Smart tests.** Start a test from a class and choose its chapters. Due and weak cards
   come first, then untested ones. Cards you miss come back later in the same session.
-- **Class dashboard.** Shows mastery, cards due today, untested cards, each chapter's
-  status mix, every card as a coloured tile, and reviews over the last 30 days. Hover for
-  details; click a chapter to open it.
-- **Easy to reorganise.**
-  - Drag cards onto a chapter in the sidebar, or use Move.
-  - Move chapters between classes and reorder them.
-  - Rename anything inline.
-- **Light and dark themes.** It follows your system setting until you pick one.
-- **Local and portable.** One SQLite database plus an image folder; export and import
-  through `.flashpack` files.
+- **Class dashboard.** Mastery, cards due today, untested cards, each chapter's status mix,
+  every card as a coloured tile, and reviews over the last 30 days. Hover for details;
+  click a chapter to open it.
+- **Easy to reorganise.** Drag cards onto a chapter in the sidebar, move chapters between
+  classes, reorder them, and rename anything inline.
+- **Light and dark themes.** Follows your system setting until you pick one.
+- **Local and portable.** One SQLite database plus an image folder. Export everything to a
+  single `.flashpack` file and import it on another device.
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/test-dark.png">
+    <img width="49%" alt="A test in progress: the question and its revealed answer on an index card, with the 1–5 rating keys below" src="docs/screenshots/test-light.png">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/chapter-dark.png">
+    <img width="49%" alt="A chapter's card list with status filters, due dates and answer previews" src="docs/screenshots/chapter-light.png">
+  </picture>
+  <br>
+  <sub>A test with the answer revealed &nbsp;·&nbsp; A chapter's cards, filterable by status</sub>
+</p>
 
 ## Getting started
 
-You need Python 3.10 or newer (developed on 3.12).
+You need **Python 3.10 or newer** (developed on 3.12). PyQt6 is the only dependency.
 
 ```bash
+git clone https://github.com/BruhClient/FlashPack.git
+cd FlashPack
 python -m venv venv
 venv\Scripts\activate          # Windows
 # source venv/bin/activate     # macOS / Linux
@@ -40,48 +70,49 @@ python main.py
 
 1. Click **+** next to *Classes* in the sidebar to create a class.
 2. Open the class and click **Chapter** to add chapters.
-3. Select a chapter and click **Add card**. Use *Save & add another* to enter several in
-   a row.
+3. Select a chapter and click **Add card**. Use *Save & add another* to enter several in a
+   row.
 4. Go back to the class and click **Start test**. Pick the chapters and the session size,
    then go.
-5. Press Space to reveal the answer, then 1–5 to rate it.
+5. Press <kbd>Space</kbd> to reveal the answer, then <kbd>1</kbd>–<kbd>5</kbd> to rate it.
 
 To rename a class or chapter, click its title on its page, or double-click it in the
-sidebar (or press F2). Use the **⋯** buttons for everything else.
+sidebar (or press <kbd>F2</kbd>). The **⋯** buttons hold everything else.
 
 ## Keyboard shortcuts
 
-| Where        | Keys                         | Action                       |
-|--------------|------------------------------|------------------------------|
-| Anywhere     | Ctrl+Shift+N                 | New class                    |
-|              | Ctrl+E / Ctrl+I              | Export / import data         |
-|              | Ctrl+Shift+L                 | Toggle light / dark          |
-|              | Ctrl+Q                       | Quit                         |
-| Sidebar      | F2 or double-click           | Rename                       |
-| Chapter page | Ctrl+N                       | Add card                     |
-|              | Ctrl+F                       | Search cards                 |
-|              | Enter / Delete               | Edit / delete selected cards |
-| Card editor  | Ctrl+Enter                   | Save                         |
-|              | Ctrl+Shift+Enter             | Save and add another         |
-|              | Ctrl+B / I / U               | Bold / italic / underline    |
-|              | Ctrl+Shift+X                 | Strikethrough                |
-|              | Ctrl+Shift+8 / Ctrl+Shift+7  | Bulleted / numbered list     |
-|              | Ctrl+\\                      | Clear formatting             |
-| Test         | Space or Enter               | Show answer                  |
-|              | 1–5                          | Rate                         |
-|              | Esc                          | End the test                 |
+| Where        | Keys                                                            | Action                       |
+|--------------|-----------------------------------------------------------------|------------------------------|
+| Anywhere     | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>                   | New class                    |
+|              | <kbd>Ctrl</kbd>+<kbd>E</kbd> / <kbd>Ctrl</kbd>+<kbd>I</kbd>     | Export / import data         |
+|              | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd>                   | Toggle light / dark          |
+|              | <kbd>Ctrl</kbd>+<kbd>Q</kbd>                                    | Quit                         |
+| Sidebar      | <kbd>F2</kbd> or double-click                                   | Rename                       |
+| Chapter page | <kbd>Ctrl</kbd>+<kbd>N</kbd>                                    | Add card                     |
+|              | <kbd>Ctrl</kbd>+<kbd>F</kbd>                                    | Search cards                 |
+|              | <kbd>Enter</kbd> / <kbd>Delete</kbd>                            | Edit / delete selected cards |
+| Card editor  | <kbd>Ctrl</kbd>+<kbd>Enter</kbd>                                | Save                         |
+|              | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>               | Save and add another         |
+|              | <kbd>Ctrl</kbd>+<kbd>B</kbd> / <kbd>I</kbd> / <kbd>U</kbd>      | Bold / italic / underline    |
+|              | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>                   | Strikethrough                |
+|              | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd> / <kbd>7</kbd>    | Bulleted / numbered list     |
+|              | <kbd>Ctrl</kbd>+<kbd>&#92;</kbd>                                | Clear formatting             |
+| Test         | <kbd>Space</kbd> or <kbd>Enter</kbd>                            | Show answer                  |
+|              | <kbd>1</kbd>–<kbd>5</kbd>                                       | Rate                         |
+|              | <kbd>Esc</kbd>                                                  | End the test                 |
 
 ## How cards are chosen
 
-Scheduling is a variant of SM-2, adapted to the 1–5 scale (`flashcards/scheduler.py`).
+Scheduling is a variant of SM-2, adapted to the 1–5 scale
+([`flashcards/scheduler.py`](flashcards/scheduler.py)).
 
-- **Rated 1–2 (missed).** The card is due again in 10 minutes and returns 3–5 cards
-  later in the current test, until you rate it 3 or higher.
-- **Rated 3–5.** The next review is 1 day away, then 3 days (6 if you rated it 4–5), then
-  the previous interval × the card's *ease*. A 3 shortens that interval (×0.8) and a 5
-  lengthens it (×1.3).
-- **Ease.** Starts at 2.5. A 5 raises it, a 4 keeps it, and 3 or lower reduces it, never
-  below 1.3. Only a card's first rating in a test changes its ease.
+| Rating           | What happens                                                                                                                                                          |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **1–2** (missed) | Due again in 10 minutes, and returns 3–5 cards later in the current test until you rate it 3 or higher.                                                               |
+| **3–5**          | Next review in 1 day, then 3 days (6 if you rated it 4–5), then the previous interval × the card's *ease*. A 3 shortens that interval (×0.8); a 5 lengthens it (×1.3). |
+
+**Ease** starts at 2.5. A 5 raises it, a 4 keeps it, and 3 or lower reduces it, never below
+1.3. Only a card's first rating in a test changes its ease.
 
 When you start a test, the session is filled in this order:
 
@@ -92,12 +123,12 @@ When you start a test, the session is filled in this order:
 
 ### Card status and mastery
 
-| Status     | Meaning                                                            |
-|------------|--------------------------------------------------------------------|
-| Untested   | Never reviewed                                                     |
-| Struggling | Last rated 1–2                                                     |
-| Learning   | Reviewed, but not yet mastered                                     |
-| Mastered   | Last rated 4–5 **and** its review interval has reached 21 days     |
+| Status         | Meaning                                                        |
+|----------------|----------------------------------------------------------------|
+| **Untested**   | Never reviewed                                                 |
+| **Struggling** | Last rated 1–2                                                 |
+| **Learning**   | Reviewed, but not yet mastered                                 |
+| **Mastered**   | Last rated 4–5 **and** its review interval has reached 21 days |
 
 A card's mastery is half your last confidence and half how long the card has held up
 (interval out of 21 days). A chapter's or class's mastery is the average over its
@@ -105,7 +136,7 @@ A card's mastery is half your last confidence and half how long the card has hel
 
 ## Your data
 
-Everything lives in one folder. The folder button at the bottom of the sidebar opens it.
+Everything lives in one folder; the folder button at the bottom of the sidebar opens it.
 
 | OS      | Default location                         |
 |---------|------------------------------------------|
@@ -113,19 +144,19 @@ Everything lives in one folder. The folder button at the bottom of the sidebar o
 | macOS   | `~/Library/Application Support/Flagship` |
 | Linux   | `~/.local/share/Flagship`                |
 
-Set the `FLAGSHIP_DATA_DIR` environment variable to use a different folder.
+Set the `FLAGSHIP_DATA_DIR` environment variable to use a different folder. Inside it:
 
-The folder contains:
-
-- `flashcards.db`: classes, chapters, cards and review history (SQLite).
-- `media/`: images used on cards. Images no card uses any more are cleaned up at startup.
-- `backups/`: automatic backups made before a *Replace everything* import.
+| Path            | Contents                                                                     |
+|-----------------|------------------------------------------------------------------------------|
+| `flashcards.db` | Classes, chapters, cards and review history (SQLite)                         |
+| `media/`        | Images used on cards. Images no card uses any more are cleaned up at startup |
+| `backups/`      | Automatic backups made before a *Replace everything* import                  |
 
 ### Moving to another device
 
-1. **Export** (Ctrl+E, or the share icon in the sidebar). This writes a `.flashpack`
-   file, which is a zip of your data (`data.json`) and images.
-2. **Import** (Ctrl+I) on the other device and choose a mode:
+1. **Export** (<kbd>Ctrl</kbd>+<kbd>E</kbd>, or the share icon in the sidebar). This writes
+   a `.flashpack` file: a zip of your data (`data.json`) and images.
+2. **Import** (<kbd>Ctrl</kbd>+<kbd>I</kbd>) on the other device and choose a mode:
    - **Merge** adds the file's classes next to the ones you already have. Clashing names
      get a suffix.
    - **Replace everything** swaps your data for the file's. Your current data is saved to
@@ -135,15 +166,19 @@ You can also copy the whole data folder while the app is closed.
 
 ## Development
 
-Run the tests:
-
 ```bash
 pip install pytest
 python -m pytest
 ```
 
 The tests cover the scheduler, the database layer, the statistics and export/import. The
-logic modules don't depend on Qt.
+logic modules in `flashcards/` don't import Qt; the widgets live in `flashcards/ui/`.
+
+UI colours always come from the tokens in `ui/theme.py`, through `theme.color(key)` in code
+or `$token` in `style.qss`. When changing the UI, check it in both themes.
+
+<details>
+<summary><b>Project layout</b></summary>
 
 ```
 main.py                 entry point: picks the data folder, applies the theme, opens the window
@@ -171,9 +206,7 @@ flashcards/
     dialogs.py          shared buttons, dialogs and small widgets
     toast.py            brief confirmation messages
 tests/                  pytest suite
+docs/screenshots/       images used in this README
 ```
 
-UI colours always come from the tokens in `ui/theme.py`, through `theme.color(key)` in
-code or `$token` in `style.qss`. When changing the UI, check it in both themes.
-#   F l a s h P a c k  
- 
+</details>
